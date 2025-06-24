@@ -1,0 +1,88 @@
+Hoi,
+Hieronder een aantal prompts die ik gebruikt heb de afgelopen tijd voor o.a. OWASP en STRIDE analyses. Aan het eind mijn notes over de use cases voor AI. Dit zijn mijn ruwe notes.
+
+=========
+
+Audits
+Perform these audits and write the reports to the "Audit" directory in the project. 
+For diagrams please use Mermaid (https://mermaid.js.org/intro/) syntax and Mermaid to render the diagrams in the HTML reports. Include the mermaid diagrams also as markdown files. The header of the documents should include:
+Current date (get the current date from the terminal)
+The name and version of the AI tool used to create the document.
+ 
+
+OWASP
+Perform a full audit on the whole app using the OWASP standard found at https://owasp.org/www-project-web-security-testing-guide/v42/ .Review the app on all OWASP aspects. Write a summary on the 10 most critical issues and suggestions on how to fix them. Write the full audit report to a html page with the name OWASP_Audit.html
+ 
+
+STRIDE
+Perform a full audit on the whole app using the STRIDE methodology. In the report include:
+Data flow map
+Top 10 issues and fixes
+Write the report to a HTML file called "STRIDE_Audit.html”.
+
+Review
+Please review the whole app:
+Keep it simple
+Make sure the code is understandable and well documented
+Check for unused components, imports, usings, files etc.
+Check for dead code
+Best practices for:
+Programming language
+Platform
+Security
+Architecture
+Check the directory and file structure
+If you see other improvements please apply them.
+Do not change the UI of the app.
+
+BOA Client app
+Please create a web app suitable for mobile that:
+Calls the API available at https://boapasfotoapi.azurewebsites.net
+The openapi documentation is availaible at: https://boapasfotoapi.azurewebsites.net/docs
+Creates an ephemeral keypair (ES) that can be used with the openapi boapasfotoapi service
+Submits a BSN, birth date and public key from the created ephemeral keypair
+Receives the answer from the API and decrypts the photo using the private key from the ephemeral keypair
+Shows the photo in the app.
+The app has input fields for BSN and Birthdate.
+A "Vraag pasfoto" button sends the post to het API and starts processing the response.
+Please use Angular for the app
+If you need to use GUI components, please use PrimeNG
+The app should be able to run on iPhone and Android phones.
+
+
+BOA Rest API (de docx file heb ik moeten opslaan als TXT zodat de AI het begreep. Het onzichtbare watermerk is de AI niet uitgekomen…) 
+In the file "BOA - Interface Description-V0.4.docx" there is a description of an API.
+Please implement this API with the following notes:
+- Use Python
+- use FastApi
+- create a doc/swagger page to document the API
+- Make the doc/swagger page with a usefull input and output example
+ 
+
+Please add a visible and invisible watermark to the photo. The watermark should contain the transaction id and the text "BOA APP RDW.NL". For the transaction id use the "transactie-id" that is available in the API response. 
+
+======== Notes m.b.t. AI use cases ========
+
+Validatie van specificaties, psa's, ontwerpen etc. Als de AI een werkende implementatie kan maken op basis van de specificatie dan was de specificatie blijkbaar precies goed. Als de AI er geen chocolade van kan maken dan is de specificatie blijkbaar niet duidelijk genoeg. (De specificatie voor BOA pasfoto's was perfect!) 
+Gebruik in de specificatie concrete normen en verwijs daar naar (met URL)
+Gebruik in de specificatie concrete voorbeelden met de juiste benamingen. De AI zal dat overnemen
+Broncode en implementatie controle zoals:
+OWASP review
+Risk assessment
+Conformeren van implementatie aan guidelines, zoals bij Python geautomatiseerd conformeren aan PEP8.
+Zeer snel bouwen van proof of concepts op basis van specificaties
+Implementatie in verschillende programmeertalen en platforms
+Migratie tussen programmeertalen en platforms
+ 
+
+Lessons learned:
+
+ 
+
+Schrijf specificaties in machine readable formaat. Dus geen afbeelding maar b.v. een mermaid diagram (is in markup geschreven en daarmee machine readable). Geen docx maar txt. (Of in ieder geval een formaat dat om te zetten is in txt).
+Vraag de AI regelmatig om zijn eigen werk te reviewen
+Maak een standaard kader waar de AI aan moet voldoen.
+Vraag de AI reviews te doen op basis van standaarden als:
+OWASP
+NIST Risk Assessment 800-30
+Maak standaard prompts voor reviews
