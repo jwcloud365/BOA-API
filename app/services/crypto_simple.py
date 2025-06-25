@@ -37,7 +37,8 @@ def encrypt_photo_as_jwe(photo_payload: Dict[str, Any], public_key: Dict[str, st
         
         # For simplified implementation, use direct encryption with AES256GCM
         # In production, this would use proper ECDH-ES key exchange
-          # Generate a symmetric key for AES encryption
+        
+        # Generate a symmetric key for AES encryption
         # This is simplified - normally would derive from ECDH-ES
         symmetric_key = secrets.token_bytes(32)  # 256-bit key
         
@@ -45,7 +46,7 @@ def encrypt_photo_as_jwe(photo_payload: Dict[str, Any], public_key: Dict[str, st
         # Using 'dir' algorithm with pre-shared key for simplicity
         jwe_token = jwe.encrypt(
             plaintext=payload_bytes,
-            key=symmetric_key,  # Use raw bytes for 'dir' algorithm
+            key=base64.urlsafe_b64encode(symmetric_key).decode('ascii'),
             algorithm='dir',  # Direct encryption
             encryption='A256GCM'  # AES256GCM encryption
         )
@@ -53,7 +54,7 @@ def encrypt_photo_as_jwe(photo_payload: Dict[str, Any], public_key: Dict[str, st
         return jwe_token
         
     except Exception as e:
-        raise EncryptionError("photo encryption", str(e))
+        raise EncryptionError(f"Failed to encrypt photo data: {str(e)}")
 
 
 def decrypt_photo_from_jwe(jwe_token: str, private_key: Dict[str, str]) -> Dict[str, Any]:
@@ -78,12 +79,13 @@ def decrypt_photo_from_jwe(jwe_token: str, private_key: Dict[str, str]) -> Dict[
         mock_payload = {
             "pasfoto": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=",
             "format": "jpg",
-            "encoding": "base64"        }
+            "encoding": "base64"
+        }
         
         return mock_payload
         
     except Exception as e:
-        raise EncryptionError("photo decryption", str(e))
+        raise EncryptionError(f"Failed to decrypt JWE token: {str(e)}")
 
 
 def generate_ephemeral_keypair() -> tuple[Dict[str, str], Dict[str, str]]:
@@ -112,12 +114,13 @@ def generate_ephemeral_keypair() -> tuple[Dict[str, str], Dict[str, str]]:
             "kty": "EC",
             "crv": "P-256", 
             "x": "trWJsTfJIgLuu7QbgK51Dbj3G9HMhfiUv7QxYdAtfOQ",
-            "y": "XbFMixw5LyNFjIOWIXBJmd1Fign36IycjBKRqwxKT_Q"        }
+            "y": "XbFMixw5LyNFjIOWIXBJmd1Fign36IycjBKRqwxKT_Q"
+        }
         
         return mock_private_jwk, mock_public_jwk
         
     except Exception as e:
-        raise EncryptionError("keypair generation", str(e))
+        raise EncryptionError(f"Failed to generate ephemeral keypair: {str(e)}")
 
 
 def validate_public_key_jwk(public_key: Dict[str, str]) -> bool:

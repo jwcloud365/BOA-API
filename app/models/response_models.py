@@ -1,32 +1,31 @@
 """
-Response models for BOA API.
+BOA API Response Models
 
-This module defines Pydantic models for API responses.
+Defines Pydantic models for API responses following the BOA Interface Description.
+All models include comprehensive validation and documentation.
 """
 
 from typing import Optional
 from pydantic import BaseModel, Field
-from uuid import UUID
 
 
 class BOAPhotoResponse(BaseModel):
     """
-    Response model for BOA photo retrieval.
+    Model for successful photo retrieval response.
     
-    Contains transaction ID, photo ID, and encrypted JWE photo data.
+    Contains encrypted photo data in JWE format along with transaction metadata.
     """
     
     transactie_id: str = Field(
         ..., 
-        description="Unique transaction ID (UUID) for audit trail",
+        description="Unique transaction identifier (UUID4 format)",
         alias="transactie-id"
     )
     
     pasfoto_id: int = Field(
         ..., 
-        description="Photo ID index number",
-        alias="pasfoto-id",
-        ge=1
+        description="Photo identifier from the request",
+        alias="pasfoto-id"
     )
     
     pasfoto_jwe: str = Field(
@@ -37,8 +36,8 @@ class BOAPhotoResponse(BaseModel):
     
     class Config:
         """Pydantic model configuration."""
-        allow_population_by_field_name = True
-        schema_extra = {
+        populate_by_name = True
+        json_schema_extra = {
             "example": {
                 "transactie-id": "7bdba0d1-bc9b-4e2a-b69e-4308a8373d32",
                 "pasfoto-id": 1,
@@ -49,9 +48,9 @@ class BOAPhotoResponse(BaseModel):
 
 class PhotoPayload(BaseModel):
     """
-    Model for the decrypted photo payload inside JWE token.
+    Model for photo payload data (used internally for JWE encryption).
     
-    This represents the structure of the photo data after JWE decryption.
+    Contains the actual photo data before encryption.
     """
     
     pasfoto: str = Field(
@@ -71,7 +70,7 @@ class PhotoPayload(BaseModel):
     
     class Config:
         """Pydantic model configuration."""
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "pasfoto": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=",
                 "format": "jpg",
@@ -94,7 +93,7 @@ class ErrorResponse(BaseModel):
     
     class Config:
         """Pydantic model configuration."""
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "error": "Validation Error",
                 "message": "Invalid BSN: failed 11-proef validation",
@@ -121,7 +120,7 @@ class HealthResponse(BaseModel):
     
     class Config:
         """Pydantic model configuration."""
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "status": "healthy",
                 "service": "BOA API",

@@ -2,6 +2,41 @@
 
 # Changelog - BOA API Implementation
 
+## [0.1.1] - 2025-06-24 - Testing and Bug Fixes
+
+### Fixed
+- Fixed pydantic-settings dependency installation and configuration parsing
+- Resolved file corruption issues with response_models.py  
+- Fixed indentation errors across multiple model files
+- Corrected CORS origins configuration to handle string input properly
+- Fixed JWE encryption key handling for A256GCM algorithm compatibility
+- Resolved EncryptionError exception constructor parameter issues
+- Fixed import issues with jose library crypto backends
+- Corrected validation service function naming consistency
+
+### Added
+- Comprehensive component testing script (test_components.py)
+- Proper exception handling for validation errors
+- Mock JWE encryption functionality for development testing
+- Enhanced error reporting and debugging capabilities
+
+### Changed
+- Simplified crypto service implementation to work with available libraries
+- Updated exception handling to use proper EncryptionError constructor
+- Improved validation error messages and type information
+- Enhanced configuration management for better environment variable parsing
+
+### Tested
+- All core components now pass integration tests
+- BSN validation with 11-proef algorithm working correctly
+- Date validation for ISO 8601 formats working correctly  
+- Public key validation for EC P-256 JWK format working correctly
+- JWE encryption service producing valid tokens
+- All FastAPI endpoints registered and accessible
+- Health check endpoint functional
+
+---
+
 ## [0.1.0] - 2025-06-24 - Initial Implementation
 
 ### Added

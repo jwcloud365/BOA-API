@@ -44,7 +44,8 @@ class JWKPublicKey(BaseModel):
     
     class Config:
         """Pydantic model configuration."""
-        schema_extra = {
+        populate_by_name = True
+        json_schema_extra = {
             "example": {
                 "kty": "EC",
                 "crv": "P-256",
@@ -67,13 +68,13 @@ class BOAPhotoRequest(BaseModel):
         description="9-digit BSN (Burgerservicenummer) with valid 11-proef",
         min_length=9,
         max_length=9,
-        regex=r"^\d{9}$"
+        pattern=r"^\d{9}$"
     )
     
     geboortedatum: str = Field(
         ..., 
         description="Birth date in ISO 8601 format (YYYY-MM-DD or YYYY-00-00)",
-        regex=r"^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$|^\d{4}-00-00$"
+        pattern=r"^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$|^\d{4}-00-00$"
     )
     
     pseudo_id_boa: str = Field(
@@ -113,8 +114,8 @@ class BOAPhotoRequest(BaseModel):
     
     class Config:
         """Pydantic model configuration."""
-        allow_population_by_field_name = True
-        schema_extra = {
+        populate_by_name = True
+        json_schema_extra = {
             "example": {
                 "BSN": "123456789",
                 "geboortedatum": "2000-08-16",
