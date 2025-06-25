@@ -1,5 +1,5 @@
 
-# Interface beschrijving v0.91 – BOA bevraging rijbewijzenregister
+# Interface beschrijving v0.91 – BOA bevraging register
 
 **Datum**: 10-06-2025  
 **Versie**: 0.91  
@@ -9,21 +9,13 @@
 
 ## Revisies
 
-| Versie | Datum      | Auteur(s)              | Omschrijving                               |
-|--------|------------|------------------------|--------------------------------------------|
-| 0.5    | 03-04-2025 | A. Velthuis            | Initiële versie                             |
-| 0.6    | 10-04-2025 | L. Pietersma           | Review                                      |
-| 0.7b   | 10-04-2025 | R. Soldaat             | Template                                    |
-| 0.91   | 10-06-2025 | A. Velthuis, M. Popma  | Feedback verwerkt, validatie & foutafhandeling toegevoegd |
+
 
 ---
 
 ## Colofon
 
-- **Locatie**: Veendam  
-- **Projectnaam**: Toegang Rijbewijsregister voor BOA’s  
-- **Projectleider**: Robert Soldaat  
-- **Contactpersoon**: Alfred Velthuis  
+- 
 
 ---
 
@@ -39,11 +31,11 @@
 
 ### 1.1 Doel
 
-Een heldere beschrijving van de interface tussen publieke BOA-organisaties en RDW.
+Een heldere beschrijving van de interface 
 
 ### 1.2 Scope
 
-Opvragen van pasfoto’s uit het RDW-rijbewijzenregister door BOA’s (domeinen I, II, IV) via REST API.
+Opvragen van pasfoto’s uit het register door BOA’s (domeinen I, II, IV) via REST API.
 
 **Uitgangspunten:**
 
