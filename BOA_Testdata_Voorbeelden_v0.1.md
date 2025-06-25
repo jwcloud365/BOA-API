@@ -9,18 +9,12 @@
 
 ## Revisies
 
-| Versie | Datum      | Auteur(s)     | Omschrijving       |
-|--------|------------|---------------|--------------------|
-| 0.1    | 10-06-2025 | M. Popma      | Initiële versie     |
+
 
 ---
 
 ## Colofon
 
-- **Locatie**: Veendam  
-- **Projectnaam**: Toegang Rijbewijsregister voor BOA’s  
-- **Projectleider**: Robert Soldaat  
-- **Contactpersonen**: Alfred Velthuis, Marius Popma  
 
 ---
 
